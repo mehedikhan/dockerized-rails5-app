@@ -5,6 +5,9 @@ development:
   database: dockerized_rails5_app_development
   pool: 5
   username: root
-  password:
-  host: localhost
+  password: root
+  host: mysql
+
+
+
 
