@@ -1,24 +1,33 @@
-# README
+# Dockerized Rails 5 App
+ 
+Example of how to dockerize a rails app 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting Started
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
+### How to Run
 
-* Database creation
+1. Install Docker for mac osx. [Docker](https://store.docker.com/editions/community/docker-ce-desktop-mac)
 
-* Database initialization
+2. Clone the repo:
 
-* How to run the test suite
+       $  git clone git@github.com:mehedikhan/dockerized-rails5-app.git
 
-* Services (job queues, cache servers, search engines, etc.)
+3. Build container image.
 
-* Deployment instructions
+       $ docker-compose build
+           
+4. Run application and docker containers
 
-* ...
+       $ docker-compose up
+        
+5. Prepare application database and users
+
+       $ docker-compose exec app rake db:create
+       $ docker-compose exec app rake db:migrate
+       $ docker-compose exec app rake db:seed        
+
+6. Access the app at [http://localhost:3000/](http://localhost:3000/)        
+        
