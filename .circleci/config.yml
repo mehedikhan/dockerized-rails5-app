@@ -7,6 +7,7 @@ jobs:
     steps:
       - setup_remote_docker:
           version: 18.09.3
+          docker_layer_caching: true
       - checkout
       - run:
           name: Test Command
@@ -23,11 +24,12 @@ jobs:
       - run:
           name: Run Docker containers
           command: |
+            set -x
             docker-compose up -d
       - run:
           name: Wait for containers
           command: |
-            dockerize -wait tcp://localhost:3306 -timeout 20s
+            dockerize -wait tcp://localhost:3306 -timeout 120s
       - run:
           name: Setup Databases
           command: |
