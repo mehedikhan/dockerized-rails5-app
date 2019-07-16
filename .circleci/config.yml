@@ -8,10 +8,10 @@ jobs:
     steps:
       - checkout
       - run:
-        - name: The First Step
-        - command: |
-            echo 'Now we will build the project'
+        name: Test Command
+        command: |
+            ls -las
       - run:
-        - name: Build Project
-        - command: |
+        name: Build Project
+        command: |
             docker-compose build
