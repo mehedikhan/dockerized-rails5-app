@@ -13,3 +13,7 @@ jobs:
           name: Build Project
           command: |
             docker-compose build
+      - run:
+          name: Verify Docker images
+          command: |
+            docker images
