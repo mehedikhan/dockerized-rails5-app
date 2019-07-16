@@ -7,9 +7,7 @@ jobs:
       - checkout
       - run:
         name: Test Command
-        command: |
-          ls -las
+        command: ls -las
       - run:
         name: Build Project
-        command: |
-          docker-compose build
+        command: docker-compose build
