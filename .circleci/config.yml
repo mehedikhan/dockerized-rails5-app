@@ -8,8 +8,8 @@ jobs:
       - run:
         name: Test Command
         command: |
-            ls -las
+          ls -las
       - run:
         name: Build Project
         command: |
-            docker-compose build
+          docker-compose build
