@@ -20,7 +20,13 @@ jobs:
           name: Verify Docker images
           command: |
             docker images
+      - run:
+          name: Setup Databases
+          command: |
+            bundle exec rake db:create
+            bundle exec rake db:migrate
 
+## Example for machine executor
 
 #version: 2
 #jobs:
