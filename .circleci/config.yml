@@ -21,6 +21,14 @@ jobs:
           command: |
             docker images
       - run:
+          name: Run Docker containers
+          command: |
+            docker-compose up -d
+      - run:
+          name: Wait for containers
+          command: |
+            dockerize -wait tcp://localhost:3306 -timeout 20s
+      - run:
           name: Setup Databases
           command: |
             docker-compose exec app rake db:create db:migrate
