@@ -1,7 +1,8 @@
 version: 2
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/buildpack-deps:stretch-curl
     working_directory: ~/rails5
     steps:
       - checkout
@@ -17,3 +18,24 @@ jobs:
           name: Verify Docker images
           command: |
             docker images
+
+
+#version: 2
+#jobs:
+#  build:
+#    machine: true
+#    working_directory: ~/rails5
+#    steps:
+#      - checkout
+#      - run:
+#          name: Test Command
+#          command: |
+#            ls -las
+#      - run:
+#          name: Build Project
+#          command: |
+#            docker-compose build
+#      - run:
+#          name: Verify Docker images
+#          command: |
+#            docker images
