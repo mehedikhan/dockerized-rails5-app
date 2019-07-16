@@ -6,8 +6,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Test Command
-        command: ls -las
+          name: Test Command
+          command: |
+            ls -las
       - run:
-        name: Build Project
-        command: docker-compose build
+          name: Build Project
+          command: |
+            docker-compose build
