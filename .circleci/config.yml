@@ -65,10 +65,6 @@ jobs:
             set -x
             docker-compose up -d
       - run:
-          name: Wait for containers
-          command: |
-            dockerize -wait tcp://localhost:3306 -timeout 30s
-      - run:
           name: Setup Databases
           command: |
             docker-compose exec app rake db:create db:migrate
