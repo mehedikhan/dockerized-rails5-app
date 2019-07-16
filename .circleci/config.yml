@@ -1,13 +1,51 @@
+#version: 2
+#jobs:
+#  build:
+#    docker:
+#      - image: circleci/buildpack-deps:stretch-curl
+#    working_directory: ~/rails5
+#    steps:
+#      - setup_remote_docker:
+#          version: 18.09.3
+#          docker_layer_caching: true
+#      - checkout
+#      - run:
+#          name: Test Command
+#          command: |
+#            ls -las
+#      - run:
+#          name: Build Project
+#          command: |
+#            docker-compose build
+#      - run:
+#          name: Verify Docker images
+#          command: |
+#            docker images
+#      - run:
+#          name: Run Docker containers
+#          command: |
+#            set -x
+#            docker-compose up -d
+#            docker run --network container:app \
+#              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:3000
+#      - run:
+#          name: Wait for containers
+#          command: |
+#            dockerize -wait tcp://localhost:3306 -timeout 30s
+#      - run:
+#          name: Setup Databases
+#          command: |
+#            docker-compose exec app rake db:create db:migrate
+#            docker-compose run app rake db:create db:create
+
+## Example for machine executor
+
 version: 2
 jobs:
   build:
-    docker:
-      - image: circleci/buildpack-deps:stretch-curl
+    machine: true
     working_directory: ~/rails5
     steps:
-      - setup_remote_docker:
-          version: 18.09.3
-          docker_layer_caching: true
       - checkout
       - run:
           name: Test Command
@@ -26,8 +64,6 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            docker run --network container:app \
-              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:3000
       - run:
           name: Wait for containers
           command: |
@@ -37,25 +73,3 @@ jobs:
           command: |
             docker-compose exec app rake db:create db:migrate
             docker-compose run app rake db:create db:create
-
-## Example for machine executor
-
-#version: 2
-#jobs:
-#  build:
-#    machine: true
-#    working_directory: ~/rails5
-#    steps:
-#      - checkout
-#      - run:
-#          name: Test Command
-#          command: |
-#            ls -las
-#      - run:
-#          name: Build Project
-#          command: |
-#            docker-compose build
-#      - run:
-#          name: Verify Docker images
-#          command: |
-#            docker images
