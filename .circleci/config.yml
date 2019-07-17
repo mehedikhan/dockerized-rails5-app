@@ -73,6 +73,7 @@ jobs:
           command: |
             set -x
             docker-compose up -d
+            sleep(30) && echo 1
       - run:
           name: Wait for containers
           command: |
