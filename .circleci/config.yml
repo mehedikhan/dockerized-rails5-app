@@ -52,6 +52,13 @@ jobs:
           command: |
             ls -las
       - run:
+          name: Install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+            && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+            && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.6.1
+      - run:
           name: Build Project
           command: |
             docker-compose build
@@ -65,7 +72,12 @@ jobs:
             set -x
             docker-compose up -d
       - run:
+          name: Wait for containers
+          command: |
+            dockerize -wait tcp://localhost:3306 -timeout 30m
+            dockerize -wait tcp://localhost:3000 -timeout 30m
+      - run:
           name: Setup Databases
           command: |
-            docker-compose exec app rake db:create db:migrate
-            docker-compose run app rake db:create db:create
+            docker-compose exec app rake db:create
+            docker-compose exec app rake db:migrate
