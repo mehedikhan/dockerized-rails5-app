@@ -93,6 +93,10 @@ jobs:
             done
             echo Failed waiting for MySQL && exit 1
       - run:
+          name: Wait 60s to settle down
+          command: |
+            sleep 60 && echo 1
+      - run:
           name: Setup Databases
           command: |
             docker-compose run app rake db:create
